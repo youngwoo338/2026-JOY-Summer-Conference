@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+<!-- ════════════════════════════════════════════════════════════════
+     링크 공유 미리보기 카드 (카톡/인스타에 뜨는 정보)
+═══════════════════════════════════════════════════════════════════ -->
+<title>영혼의 닻 · 2026 죠이선교회 여름수양회</title>
+<meta property="og:title" content="영혼의 닻 · 2026 죠이선교회 여름수양회" />
+<meta property="og:description" content="우리가 함께한 며칠, 그 순간들을 여기 담았어요." />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0A323D" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+<style>
+:root{
+  --abyss:#0A323D;
+  --deep:#0E4350;
+  --ocean:#13556380;
+  --teal:#2C8A9B;
+  --aqua:#62B8C5;
+  --surface:#A7DCDF;
+  --foam:#EEF6F3;
+  --foam-2:#DDEEEA;
+  --sand:#E5CDA1;
+  --sand-deep:#C7A56C;
+  --warm:#B58A52;
+  --ink:#13383F;
+  --ink-soft:#5E7E82;
+  --line:rgba(19,56,63,.12);
+  --shadow:rgba(10,50,61,.20);
+  --display:"Gowun Batang", serif;
+  --body:"Pretendard", -apple-system, system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--foam);
+  color:var(--ink);
+  font-family:var(--body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+
+/* ═══════════ HERO ═══════════ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:clamp(28px,8vw,80px) 26px clamp(96px,15vw,150px);
+  overflow:hidden;
+  color:#fff;
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(255,238,205,.22), transparent 46%),
+    linear-gradient(180deg,#2E8493 0%,#1B6576 24%,#114F5D 56%,#0A323D 100%);
+}
+/* 가장자리 깊이감(비네트) */
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(130% 110% at 50% 38%, transparent 58%, rgba(7,38,47,.55) 100%);
+}
+/* 내려오는 빛줄기 */
+.godrays{
+  position:absolute;inset:-16% -20% 0 -20%;pointer-events:none;z-index:0;
+  background:
+    linear-gradient(101deg, transparent 0 9%, rgba(255,251,240,.12) 10% 12%, transparent 13% 24%),
+    linear-gradient(97deg,  transparent 0 30%, rgba(255,255,255,.07) 31% 33%, transparent 34% 46%),
+    linear-gradient(108deg, transparent 0 53%, rgba(255,251,240,.10) 54% 57%, transparent 58% 68%),
+    linear-gradient(94deg,  transparent 0 74%, rgba(255,255,255,.06) 75% 78%, transparent 79% 92%);
+  mix-blend-mode:screen;transform-origin:top center;
+  animation:sway 14s ease-in-out infinite;
+}
+@keyframes sway{0%,100%{transform:skewX(-2.5deg) translateX(-12px);opacity:.85}50%{transform:skewX(2.5deg) translateX(12px);opacity:1}}
+.bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bubbles span{
+  position:absolute;bottom:-40px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.5), rgba(255,255,255,.05) 60%, transparent);
+  border:1px solid rgba(255,255,255,.16);animation:rise linear infinite;
+}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}12%{opacity:.7}100%{transform:translateY(-110svh) translateX(26px);opacity:0}}
+
+.hero .content{position:relative;z-index:2;max-width:680px}
+.hero .content > *{opacity:0;animation:riseIn .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero .anchor-mark{animation-delay:.05s}
+.hero .eyebrow{animation-delay:.18s}
+.hero h1{animation-delay:.30s}
+.hero .rule{animation-delay:.44s}
+.hero .verse{animation-delay:.56s}
+.hero .meta{animation-delay:.70s}
+@keyframes riseIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.anchor-mark{width:44px;height:44px;margin:0 auto 24px;opacity:.92}
+.eyebrow{
+  font-size:clamp(11px,3vw,13px);letter-spacing:.4em;text-transform:uppercase;
+  color:var(--surface);font-weight:600;margin-bottom:22px;padding-left:.4em;
+}
+.hero h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(56px,18vw,116px);line-height:1.02;letter-spacing:.05em;
+  text-shadow:0 6px 50px rgba(0,0,0,.30);
+}
+.hero .rule{
+  width:54px;height:1px;margin:26px auto 0;
+  background:linear-gradient(90deg,transparent,var(--sand),transparent);
+}
+.verse{
+  margin:24px auto 0;max-width:none;
+  color:rgba(255,255,255,.9);font-family:var(--display);
+  font-size:clamp(15px,4vw,18px);line-height:1.9;
+  word-break:keep-all;
+}
+.verse cite{
+  display:block;margin-top:14px;font-style:normal;font-family:var(--body);
+  font-size:.78em;letter-spacing:.2em;color:var(--sand);
+}
+.meta{
+  margin-top:30px;display:flex;gap:10px 18px;align-items:center;flex-wrap:wrap;justify-content:center;
+  color:rgba(255,255,255,.86);font-size:clamp(13px,3.6vw,15px);letter-spacing:.02em;
+}
+.meta .dot{width:4px;height:4px;border-radius:50%;background:var(--sand);opacity:.8}
+
+.scroll-cue{
+  position:absolute;bottom:104px;left:50%;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:9px;
+  color:rgba(255,255,255,.6);font-size:9.5px;letter-spacing:.3em;
+  animation:float 2.6s ease-in-out infinite;
+}
+.scroll-cue .l{width:1px;height:30px;background:linear-gradient(rgba(255,255,255,.6),transparent)}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+.wave{position:absolute;left:0;right:0;bottom:-1px;z-index:1;line-height:0}
+.wave svg{width:100%;height:auto;display:block}
+
+/* ═══════════ 따뜻한 인사말 ═══════════ */
+.welcome{
+  text-align:center;max-width:600px;margin:0 auto;
+  padding:clamp(56px,11vw,88px) 26px clamp(8px,3vw,20px);
+}
+.welcome .sm-anchor{width:30px;height:30px;margin:0 auto 22px;opacity:.5;color:var(--teal)}
+.welcome .lead{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(22px,5.8vw,30px);line-height:1.5;color:var(--ink);
+  letter-spacing:.01em;word-break:keep-all;
+}
+.welcome .body{
+  margin-top:18px;font-family:var(--display);
+  font-size:clamp(15px,4vw,17.5px);line-height:2;color:var(--ink-soft);
+  word-break:keep-all;
+}
+
+/* ═══════════ 섹션 공통 ═══════════ */
+section.block{max-width:1060px;margin:0 auto;padding:clamp(48px,9vw,84px) clamp(20px,5vw,40px)}
+.sec-head{margin-bottom:clamp(26px,5.5vw,42px)}
+.sec-num{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12.5px;color:var(--warm);letter-spacing:.18em;margin-bottom:13px;font-weight:600;
+}
+.sec-num::before{content:"";width:26px;height:1px;background:var(--sand-deep)}
+.sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(27px,7vw,44px);line-height:1.18;letter-spacing:.01em}
+.sec-head p{margin-top:13px;color:var(--ink-soft);max-width:48ch;font-size:clamp(14px,3.8vw,16px);word-break:keep-all;line-height:1.85}
+
+/* ═══════════ 플레이리스트 ═══════════ */
+.playlist-frame{
+  position:relative;width:100%;aspect-ratio:16/9;
+  border-radius:20px;overflow:hidden;background:var(--foam-2);
+  box-shadow:0 24px 56px -28px var(--shadow);border:1px solid var(--line);
+}
+.playlist-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.playlist-empty{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:9px;text-align:center;color:var(--ink-soft);padding:24px;
+}
+.playlist-empty b{font-family:var(--display);color:var(--ink);font-size:19px}
+
+/* ═══════════ 갤러리 ═══════════ */
+.gallery{column-count:2;column-gap:12px}
+@media(min-width:620px){.gallery{column-count:3;column-gap:16px}}
+@media(min-width:980px){.gallery{column-count:4}}
+.gallery figure{
+  break-inside:avoid;margin:0 0 12px;border-radius:16px;overflow:hidden;position:relative;
+  background:var(--foam-2);box-shadow:0 14px 30px -20px var(--shadow);
+  cursor:zoom-in;outline:1px solid rgba(255,255,255,.5);outline-offset:-1px;
+}
+@media(min-width:620px){.gallery figure{margin-bottom:16px}}
+.gallery img{
+  width:100%;height:auto;display:block;
+  opacity:0;transform:scale(1.03);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.gallery img.loaded{opacity:1;transform:none}
+.gallery figure:hover img{transform:scale(1.05)}
+.gallery figcaption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:26px 16px 13px;
+  font-size:12.5px;color:#fff;letter-spacing:.02em;
+  background:linear-gradient(to top,rgba(10,50,61,.82),transparent);
+  opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;
+  pointer-events:none;
+}
+.gallery figure:hover figcaption{opacity:1;transform:none}
+
+.gallery-empty{
+  text-align:center;padding:clamp(52px,13vw,100px) 24px;
+  border:1px dashed var(--sand-deep);border-radius:22px;
+  background:linear-gradient(180deg,#fff,var(--foam-2));
+}
+.gallery-empty .icon{width:42px;height:42px;margin:0 auto 18px;opacity:.5}
+.gallery-empty b{font-family:var(--display);font-size:clamp(19px,5vw,25px);display:block;margin-bottom:9px}
+.gallery-empty p{color:var(--ink-soft);max-width:38ch;margin:0 auto}
+.gallery-foot{
+  text-align:center;margin-top:clamp(20px,5vw,32px);
+  font-family:var(--display);color:var(--ink-soft);
+  font-size:clamp(13px,3.6vw,15px);letter-spacing:.02em;
+}
+
+/* ═══════════ 라이트박스 ═══════════ */
+.lightbox{
+  position:fixed;inset:0;z-index:50;background:rgba(7,34,42,.96);
+  display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  -webkit-tap-highlight-color:transparent;opacity:0;transition:opacity .25s;
+}
+.lightbox.open{display:flex;opacity:1}
+.lightbox img{
+  max-width:94vw;max-height:80vh;border-radius:10px;
+  box-shadow:0 40px 90px -24px rgba(0,0,0,.7);user-select:none;
+  transition:opacity .25s;
+}
+.lb-cap{color:rgba(255,255,255,.78);font-size:13.5px;letter-spacing:.03em;min-height:1.2em;padding:0 20px;text-align:center}
+.lb-btn{
+  position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;
+  width:46px;height:46px;border-radius:50%;font-size:20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:background .2s;
+}
+.lb-btn:hover{background:rgba(255,255,255,.24)}
+.lb-close{top:18px;right:18px}
+.lb-prev{left:14px;top:50%;transform:translateY(-50%)}
+.lb-next{right:14px;top:50%;transform:translateY(-50%)}
+.lb-count{position:absolute;top:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:13px;letter-spacing:.18em}
+@media(max-width:520px){.lb-prev{left:8px}.lb-next{right:8px}.lb-btn{width:42px;height:42px}}
+
+/* ═══════════ 푸터 ═══════════ */
+footer{
+  position:relative;text-align:center;color:rgba(255,255,255,.85);
+  padding:clamp(60px,12vw,92px) 24px clamp(50px,9vw,66px);
+  background:
+    radial-gradient(120% 90% at 50% 120%, rgba(255,238,205,.10), transparent 50%),
+    linear-gradient(180deg,#114F5D,#0A323D);
+  overflow:hidden;
+}
+footer .anchor-mark{width:38px;height:38px;opacity:.8;margin-bottom:16px}
+footer .mark{font-family:var(--display);color:#fff;font-size:21px;letter-spacing:.2em;margin-bottom:9px}
+footer small{font-size:12px;letter-spacing:.04em;color:rgba(255,255,255,.6);line-height:1.8;display:block}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .85s,transform .85s}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal,.hero .content > *{opacity:1;transform:none}
+  .gallery img{opacity:1;transform:none}.godrays{opacity:.6}
+}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero">
+  <div class="godrays" aria-hidden="true"></div>
+  <div class="bubbles" aria-hidden="true" id="bubbles"></div>
+
+  <div class="content">
+    <svg class="anchor-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="4" r="2"/><line x1="12" y1="6" x2="12" y2="22"/>
+      <line x1="6" y1="10" x2="18" y2="10"/><path d="M4 14a8 8 0 0 0 16 0"/>
+    </svg>
+    <p class="eyebrow">2026 JOY Summer Conference</p>
+    <h1>영혼의 닻</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="verse">
+      우리가 이 소망을 가지고 있는 것은<br>영혼의 닻 같아서 튼튼하고<br>견고하여 휘장 안에 들어가나니
+      <cite>히브리서 6장 19절</cite>
+    </p>
+    <div class="meta">
+      <span>2026. 6. 29 – 7. 3</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span>오륜비전빌리지 · 가평</span>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true"><span>SCROLL</span><span class="l"></span></div>
+
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,42 C240,92 480,2 720,32 C960,62 1200,90 1440,46 L1440,90 L0,90 Z" fill="#EEF6F3"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ═══════════════ 인사말 ═══════════════ -->
+<div class="welcome reveal">
+  <svg class="sm-anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="4" r="2"/><line x1="12" y1="6" x2="12" y2="22"/><line x1="6" y1="10" x2="18" y2="10"/><path d="M4 14a8 8 0 0 0 16 0"/>
+  </svg>
+  <p class="lead">가장 깊고 따뜻했던 시간의 기록</p>
+  <p class="body">함께했던 소중한 은혜의 순간들을 이곳에 남깁니다<br>천천히, 오래도록 머물다 가세요</p>
+</div>
+
+<!-- ═══════════════ 플레이리스트 ═══════════════ -->
+<section class="block reveal" id="playlist">
+  <div class="sec-head">
+    <p class="sec-num">소망의 바다, 그날의 영혼의 울림</p>
+    <h2>우리 영혼이 깊은 바다에 잠겨들던 날</h2>
+    <p>수양회 기간, 차갑게 메말랐던 우리 마음을<br>소망의 깊은 파도로 다시 가득 채웠던 찬양과 고백<br>지금 이 시간 그 은혜의 바다에 천천히 잠겨보세요</p>
+  </div>
+  <div class="playlist-frame" id="playlistFrame">
+    <div class="playlist-empty">
+      <b>플레이리스트 준비 중 🎧</b>
+      <span>수양회 플리가 나오면 여기에서 바로 들을 수 있어요.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 사진 갤러리 ═══════════════ -->
+<section class="block reveal" id="gallery">
+  <div class="sec-head">
+    <p class="sec-num">은혜로 새겨진 시간들</p>
+    <h2>깊은 바다에 피어난 추억</h2>
+    <p>소망의 닻을 내렸던 그날의 빛나던 순간들<br>천천히, 깊이 새기듯 구경하다 가세요</p>
+  </div>
+  <div id="galleryArea"></div>
+  <p id="galleryFoot" class="gallery-foot" hidden>차곡차곡 가라앉은 은혜의 순간들</p>
+</section>
+
+<!-- ═══════════════ 푸터 ═══════════════ -->
+<footer>
+  <svg class="anchor-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="4" r="2"/><line x1="12" y1="6" x2="12" y2="22"/>
+    <line x1="6" y1="10" x2="18" y2="10"/><path d="M4 14a8 8 0 0 0 16 0"/>
+  </svg>
+  <div class="mark">JOY</div>
+  <small>죠이선교회 · 2026 여름수양회 「영혼의 닻」 · 판매부 제작</small>
+</footer>
+
+<!-- ═══════════════ 라이트박스 ═══════════════ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="닫기">✕</button>
+  <div class="lb-count" id="lbCount"></div>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="이전 사진">‹</button>
+  <img id="lbImg" alt="" />
+  <button class="lb-btn lb-next" id="lbNext" aria-label="다음 사진">›</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║   ★ 여기 두 군데만 채우면 사이트가 완성돼요 ★                  ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ── ① 유튜브 재생목록 ──────────────────────────────
+   재생목록 주소에서  list=  뒤의 코드만 넣으면 돼요.
+   ※ 앞뒤에 = 나 &si=... 가 붙어도 알아서 정리되니 걱정 마세요.        */
+const PLAYLIST_ID = "PL9hR86vAUm1_btQ4PyDeq2Xo-cQAxb4Gh";
+
+/* ── ② 사진 목록 ────────────────────────────────────
+   index.html 옆 images 폴더에 사진을 넣고 파일 이름을 적어요.
+   - 간단히:  "images/01.jpg",
+   - 설명 넣고 싶으면:  { src:"images/01.jpg", cap:"첫째 날 저녁집회" },
+   (수양회 끝난 뒤에 채우면 됩니다)                                    */
+const PHOTOS = [
+  // "images/01.jpg",
+  // { src:"images/02.jpg", cap:"둘째 날 바다" },
+];
+
+/* (주제·말씀·일정은 위쪽 HTML에 이미 포스터 내용으로 채워뒀어요) */
+
+/* ════════════ 여기부터는 건드릴 필요 없어요 ════════════ */
+
+// 공기방울
+const bw=document.getElementById("bubbles");
+for(let i=0;i<11;i++){
+  const b=document.createElement("span");
+  const s=6+Math.random()*22;
+  b.style.width=b.style.height=s+"px";
+  b.style.left=Math.random()*100+"%";
+  b.style.animationDuration=(9+Math.random()*9)+"s";
+  b.style.animationDelay=(-Math.random()*12)+"s";
+  bw.appendChild(b);
+}
+
+// 플레이리스트 — 붙여넣은 값에서 순수 ID만 추출
+function cleanPlaylistId(raw){
+  if(!raw) return "";
+  let s=String(raw).trim();
+  const m=s.match(/[?&]list=([^&]+)/);
+  if(m) return m[1];
+  s=s.replace(/^=+/,"").replace(/^list=/i,"");
+  return s.split("&")[0].replace(/^=+/,"");
+}
+const _plid=cleanPlaylistId(PLAYLIST_ID);
+if(_plid){
+  document.getElementById("playlistFrame").innerHTML=
+    '<iframe src="https://www.youtube.com/embed/videoseries?list='+encodeURIComponent(_plid)+
+    '" title="수양회 플레이리스트" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+}
+
+// 사진 정규화 (문자열/객체 둘 다 허용)
+const ITEMS=PHOTOS.map(p=> typeof p==="string" ? {src:p,cap:""} : {src:p.src,cap:p.cap||""});
+
+// 갤러리
+const area=document.getElementById("galleryArea");
+if(ITEMS.length){
+  const grid=document.createElement("div");grid.className="gallery";
+  ITEMS.forEach((it,i)=>{
+    const fig=document.createElement("figure");
+    const img=new Image();
+    img.src=it.src;img.alt=it.cap||("수양회 사진 "+(i+1));img.loading="lazy";
+    img.addEventListener("load",()=>img.classList.add("loaded"));
+    fig.appendChild(img);
+    if(it.cap){const c=document.createElement("figcaption");c.textContent=it.cap;fig.appendChild(c);}
+    fig.addEventListener("click",()=>openLightbox(i));
+    grid.appendChild(fig);
+  });
+  area.appendChild(grid);
+  document.getElementById("galleryFoot").hidden=false;
+}else{
+  area.innerHTML=
+    '<div class="gallery-empty">'+
+      '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#2C8A9B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><line x1="12" y1="6" x2="12" y2="22"/><line x1="6" y1="10" x2="18" y2="10"/><path d="M4 14a8 8 0 0 0 16 0"/></svg>'+
+      '<b>사진은 수양회가 끝난 뒤 올라와요</b>'+
+      '<p>며칠만 기다려 주세요. 그 날의 순간들이 이곳에 차곡차곡 가라앉을 거예요.</p>'+
+    '</div>';
+}
+
+// 라이트박스
+const lb=document.getElementById("lightbox"),lbImg=document.getElementById("lbImg"),
+      lbCount=document.getElementById("lbCount"),lbCap=document.getElementById("lbCap");
+let cur=0;
+function preload(i){if(ITEMS[i]){const im=new Image();im.src=ITEMS[i].src;}}
+function openLightbox(i){cur=i;render();lb.classList.add("open");lb.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
+function closeLightbox(){lb.classList.remove("open");lb.setAttribute("aria-hidden","true");document.body.style.overflow="";}
+function step(d){cur=(cur+d+ITEMS.length)%ITEMS.length;render();}
+function render(){
+  lbImg.style.opacity=0;
+  const it=ITEMS[cur];
+  const tmp=new Image();
+  tmp.onload=()=>{lbImg.src=it.src;lbImg.style.opacity=1;};
+  tmp.src=it.src;
+  lbCount.textContent=(cur+1)+" / "+ITEMS.length;
+  lbCap.textContent=it.cap||"";
+  preload((cur+1)%ITEMS.length);preload((cur-1+ITEMS.length)%ITEMS.length);
+}
+document.getElementById("lbClose").onclick=closeLightbox;
+document.getElementById("lbPrev").onclick=e=>{e.stopPropagation();step(-1);};
+document.getElementById("lbNext").onclick=e=>{e.stopPropagation();step(1);};
+lb.addEventListener("click",e=>{if(e.target===lb)closeLightbox();});
+document.addEventListener("keydown",e=>{
+  if(!lb.classList.contains("open"))return;
+  if(e.key==="Escape")closeLightbox();
+  if(e.key==="ArrowLeft")step(-1);
+  if(e.key==="ArrowRight")step(1);
+});
+let sx=0;
+lb.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});
+lb.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)step(dx<0?1:-1);},{passive:true});
+
+// 스크롤 등장
+const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}});},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
