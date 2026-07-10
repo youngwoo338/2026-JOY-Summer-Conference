@@ -56,14 +56,15 @@ main{max-width:1080px;margin:0 auto;padding:clamp(40px,8vw,72px) clamp(16px,4vw,
 .g-label::before,.g-label::after{content:"";width:20px;height:1px;background:var(--sand-deep)}
 .g-title{font-family:var(--display);font-weight:700;font-size:clamp(23px,6vw,36px);line-height:1.2}
 
-.grid{column-count:2;column-gap:12px}
-@media(min-width:620px){.grid{column-count:3;column-gap:16px}}
-@media(min-width:960px){.grid{column-count:4}}
-figure{break-inside:avoid;margin:0 0 12px;border-radius:15px;overflow:hidden;position:relative;
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:620px){.grid{grid-template-columns:repeat(3,1fr);gap:16px}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}}
+/* 단체사진: 한 줄로 나란히 */
+.grid.solo{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 auto}
+figure{margin:0;border-radius:15px;overflow:hidden;position:relative;aspect-ratio:4/3;
   background:var(--foam-2);box-shadow:0 12px 28px -18px var(--shadow);cursor:zoom-in;
   outline:1px solid rgba(255,255,255,.5);outline-offset:-1px}
-@media(min-width:620px){figure{margin-bottom:16px}}
-figure img{width:100%;height:auto;display:block;opacity:0;transform:scale(1.03);
+figure img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transform:scale(1.03);
   transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
 figure img.loaded{opacity:1;transform:none}
 figure:hover img{transform:scale(1.05)}
@@ -190,7 +191,7 @@ const VIDEO = "images/finale.mp4";
    빼거나 추가할 사진은 이 목록만 고치면 됩니다.                          */
 const SECTIONS = [
   {
-    label:"함께한 모두", title:"단체사진", showCaption:false,
+    label:"함께한 모두", title:"단체사진", showCaption:false, solo:true,
     photos:[ "images/단체사진-01.jpg","images/단체사진-02.jpg" ]
   },
   {
@@ -209,9 +210,9 @@ const SECTIONS = [
   {
     label:"섬김으로 함께", title:"수준위", showCaption:true,
     photos:[
-      "images/미디어부-01.jpg","images/방장부-01.jpg","images/방장부 간사님들-01.jpg",
-      "images/시설식사부-01.jpg","images/예배부-01.jpg","images/주진부-01.jpg",
-      "images/중보기도부-01.jpg","images/진행부-01.jpg"
+      "images/방장부-01.jpg","images/방장부 간사님들-01.jpg","images/진행부-01.jpg",
+      "images/주진부-01.jpg","images/예배부-01.jpg","images/미디어부-01.jpg",
+      "images/시설식사부-01.jpg","images/중보기도부-01.jpg"
     ]
   }
 ];
@@ -239,7 +240,7 @@ SECTIONS.forEach(sec=>{
   head.className="g-head";
   head.innerHTML='<div class="g-label">'+sec.label+'</div><div class="g-title">'+sec.title+'</div>';
   wrap.appendChild(head);
-  const grid=document.createElement("div");grid.className="grid";
+  const grid=document.createElement("div");grid.className="grid"+(sec.solo?" solo":"");
   sec.photos.forEach(src=>{
     const myIndex=idx++;
     const fig=document.createElement("figure");
@@ -257,14 +258,16 @@ SECTIONS.forEach(sec=>{
 });
 
 // 판매부 영상
+let finaleVid=null;
 if(VIDEO && VIDEO.trim()){
   const sec=document.createElement("section");
   sec.className="finale reveal";
   sec.innerHTML=
     '<div class="g-head"><div class="g-label">그리고, 우리 판매부</div>'+
     '<div class="g-title">이 모든 걸 함께 준비한 사람들</div></div>'+
-    '<div class="video-wrap"><video controls playsinline preload="metadata" src="'+encodeURI(VIDEO.trim())+'"></video></div>';
+    '<div class="video-wrap"><video id="finaleVid" controls playsinline preload="metadata" src="'+encodeURI(VIDEO.trim())+'"></video></div>';
   main.appendChild(sec);
+  finaleVid=document.getElementById("finaleVid");
 }
 
 // ─── 라이트박스 ───
@@ -272,7 +275,8 @@ const lb=document.getElementById("lightbox"),lbImg=document.getElementById("lbIm
       lbCount=document.getElementById("lbCount"),lbCap=document.getElementById("lbCap");
 let cur=0;
 function preload(i){if(ALL[i]){const im=new Image();im.src=encodeURI(ALL[i].src);}}
-function openLightbox(i){cur=i;render();lb.classList.add("open");lb.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
+let openedAt=0;
+function openLightbox(i){cur=i;render();lb.classList.add("open");lb.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";openedAt=Date.now();}
 function closeLightbox(){lb.classList.remove("open");lb.setAttribute("aria-hidden","true");document.body.style.overflow="";}
 function step(d){cur=(cur+d+ALL.length)%ALL.length;render();}
 function render(){
@@ -294,9 +298,18 @@ document.addEventListener("keydown",e=>{
   if(e.key==="ArrowLeft")step(-1);
   if(e.key==="ArrowRight")step(1);
 });
-let sx=0;
-lb.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});
-lb.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)step(dx<0?1:-1);},{passive:true});
+// 스와이프: 라이트박스 안에서 시작된 터치만 인정 (사진을 눌러 연 그 터치는 무시)
+let sx=null,sy=null;
+lb.addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+lb.addEventListener("touchend",e=>{
+  if(sx===null)return;                       // 시작 지점 없으면(=열자마자 뗀 손) 무시
+  if(Date.now()-openedAt<300){sx=null;sy=null;return;} // 막 열린 직후 오터치 방지
+  const dx=e.changedTouches[0].clientX-sx;
+  const dy=e.changedTouches[0].clientY-sy;
+  // 가로로 60px 넘게, 그리고 세로 움직임보다 확실히 클 때만 '넘기기'로 판정
+  if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.4) step(dx<0?1:-1);
+  sx=null;sy=null;
+},{passive:true});
 
 // ─── 주제곡 재생 ───
 const musicBtn=document.getElementById("music"),musicTxt=document.getElementById("musicTxt");
@@ -331,6 +344,17 @@ if(THEME_SONG && THEME_SONG.trim()){
     if(playing){audio.pause();setState(false);}
     else{audio.play().then(()=>setState(true)).catch(()=>{});}
   });
+
+  // 판매부 영상과 음악 연동: 영상 켜면 음악 잠시 멈춤 → 영상 끝/멈추면 음악 자동 재개
+  if(finaleVid){
+    let resumeAfter=false;
+    finaleVid.addEventListener("play",()=>{
+      if(playing){resumeAfter=true;audio.pause();setState(false);}
+    });
+    const resume=()=>{ if(resumeAfter){resumeAfter=false;audio.play().then(()=>setState(true)).catch(()=>{});} };
+    finaleVid.addEventListener("pause",resume);   // 끝나거나 사용자가 멈출 때
+    finaleVid.addEventListener("ended",resume);
+  }
 }else{
   musicBtn.style.display="none";
 }
