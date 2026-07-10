@@ -222,6 +222,43 @@ section.block{max-width:1060px;margin:0 auto;padding:clamp(48px,9vw,84px) clamp(
   font-size:clamp(13px,3.6vw,15px);letter-spacing:.02em;
 }
 
+/* ═══════════ 판매부 영상 ═══════════ */
+.video-wrap{
+  border-radius:20px;overflow:hidden;
+  background:var(--foam-2);border:1px solid var(--line);
+  box-shadow:0 24px 56px -28px var(--shadow);
+  max-width:760px;margin:0 auto;
+}
+.video-wrap video{width:100%;height:auto;display:block;background:#0A323D}
+
+/* ═══════════ 사진 페이지 이동 카드 ═══════════ */
+#gate{display:flex;justify-content:center}
+.gate-card{
+  text-align:center;max-width:560px;width:100%;
+  padding:clamp(40px,8vw,64px) clamp(24px,5vw,48px);
+  border-radius:26px;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(95,183,196,.14), transparent 60%),
+    linear-gradient(180deg,#fff,var(--foam-2));
+  border:1px solid var(--line);
+  box-shadow:0 26px 60px -34px var(--shadow);
+}
+.gate-anchor{width:38px;height:38px;margin:0 auto 20px;color:var(--teal);opacity:.7}
+.gate-label{font-size:12.5px;color:var(--warm);letter-spacing:.18em;font-weight:600;margin-bottom:12px}
+.gate-title{font-family:var(--display);font-weight:700;font-size:clamp(24px,6vw,34px);line-height:1.2;color:var(--ink)}
+.gate-sub{margin-top:14px;color:var(--ink-soft);font-size:clamp(14px,3.8vw,15.5px);line-height:1.85;word-break:keep-all}
+.gate-btn{
+  display:inline-flex;align-items:center;gap:9px;margin-top:26px;
+  padding:14px 28px;border-radius:100px;
+  background:linear-gradient(180deg,var(--teal),var(--sky-deep,#2E6CA0));
+  color:#fff;text-decoration:none;font-weight:600;font-size:15.5px;letter-spacing:.02em;
+  box-shadow:0 14px 30px -12px rgba(46,108,160,.6);
+  transition:transform .25s,box-shadow .25s;
+}
+.gate-btn:hover{transform:translateY(-2px);box-shadow:0 20px 38px -12px rgba(46,108,160,.7)}
+.gate-btn svg{transition:transform .25s}
+.gate-btn:hover svg{transform:translateX(3px)}
+
 /* ═══════════ 라이트박스 ═══════════ */
 .lightbox{
   position:fixed;inset:0;z-index:50;background:rgba(7,34,42,.96);
@@ -330,15 +367,20 @@ footer small{font-size:12px;letter-spacing:.04em;color:rgba(255,255,255,.6);line
   </div>
 </section>
 
-<!-- ═══════════════ 사진 갤러리 ═══════════════ -->
-<section class="block reveal" id="gallery">
-  <div class="sec-head">
-    <p class="sec-num">은혜로 새겨진 시간들</p>
-    <h2>깊은 바다에 피어난 추억</h2>
-    <p>소망의 닻을 내렸던 그날의 빛나던 순간들<br>천천히, 깊이 새기듯 구경하다 가세요</p>
+<!-- ═══════════════ 사진 페이지로 이동 ═══════════════ -->
+<section class="block reveal" id="gate">
+  <div class="gate-card">
+    <svg class="gate-anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="4" r="2"/><line x1="12" y1="6" x2="12" y2="22"/><line x1="6" y1="10" x2="18" y2="10"/><path d="M4 14a8 8 0 0 0 16 0"/>
+    </svg>
+    <p class="gate-label">은혜로 새겨진 시간들</p>
+    <h2 class="gate-title">깊은 바다에 피어난 추억</h2>
+    <p class="gate-sub">그날의 순간들이 사진으로 남아 있어요<br>천천히 잠겨들 준비가 되었다면</p>
+    <a class="gate-btn" href="gallery.html">
+      <span>사진 보러 가기</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </div>
-  <div id="galleryArea"></div>
-  <p id="galleryFoot" class="gallery-foot" hidden>차곡차곡 가라앉은 은혜의 순간들</p>
 </section>
 
 <!-- ═══════════════ 푸터 ═══════════════ -->
@@ -351,37 +393,19 @@ footer small{font-size:12px;letter-spacing:.04em;color:rgba(255,255,255,.6);line
   <small>죠이선교회 · 2026 여름수양회 「영혼의 닻」 · 판매부 제작</small>
 </footer>
 
-<!-- ═══════════════ 라이트박스 ═══════════════ -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lb-btn lb-close" id="lbClose" aria-label="닫기">✕</button>
-  <div class="lb-count" id="lbCount"></div>
-  <button class="lb-btn lb-prev" id="lbPrev" aria-label="이전 사진">‹</button>
-  <img id="lbImg" alt="" />
-  <button class="lb-btn lb-next" id="lbNext" aria-label="다음 사진">›</button>
-  <div class="lb-cap" id="lbCap"></div>
-</div>
-
 <script>
 /* ╔══════════════════════════════════════════════════════════════╗
-   ║   ★ 여기 두 군데만 채우면 사이트가 완성돼요 ★                  ║
+   ║   ★ 첫 화면은 여기(유튜브 재생목록)만 채우면 돼요 ★           ║
+   ║     사진·판매부 영상은 gallery.html 에서 관리해요.             ║
    ╚══════════════════════════════════════════════════════════════╝ */
 
-/* ── ① 유튜브 재생목록 ──────────────────────────────
+/* ── 유튜브 재생목록 ────────────────────────────────
    재생목록 주소에서  list=  뒤의 코드만 넣으면 돼요.
    ※ 앞뒤에 = 나 &si=... 가 붙어도 알아서 정리되니 걱정 마세요.        */
 const PLAYLIST_ID = "PL9hR86vAUm1_btQ4PyDeq2Xo-cQAxb4Gh";
 
-/* ── ② 사진 목록 ────────────────────────────────────
-   index.html 옆 images 폴더에 사진을 넣고 파일 이름을 적어요.
-   - 간단히:  "images/01.jpg",
-   - 설명 넣고 싶으면:  { src:"images/01.jpg", cap:"첫째 날 저녁집회" },
-   (수양회 끝난 뒤에 채우면 됩니다)                                    */
-const PHOTOS = [
-  // "images/01.jpg",
-  // { src:"images/02.jpg", cap:"둘째 날 바다" },
-];
-
-/* (주제·말씀·일정은 위쪽 HTML에 이미 포스터 내용으로 채워뒀어요) */
+/* (주제·말씀·일정은 위쪽 HTML에 이미 포스터 내용으로 채워뒀어요)
+   사진과 판매부 영상은 '사진 페이지(gallery.html)'에서 관리해요.        */
 
 /* ════════════ 여기부터는 건드릴 필요 없어요 ════════════ */
 
@@ -412,66 +436,6 @@ if(_plid){
     '<iframe src="https://www.youtube.com/embed/videoseries?list='+encodeURIComponent(_plid)+
     '" title="수양회 플레이리스트" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
 }
-
-// 사진 정규화 (문자열/객체 둘 다 허용)
-const ITEMS=PHOTOS.map(p=> typeof p==="string" ? {src:p,cap:""} : {src:p.src,cap:p.cap||""});
-
-// 갤러리
-const area=document.getElementById("galleryArea");
-if(ITEMS.length){
-  const grid=document.createElement("div");grid.className="gallery";
-  ITEMS.forEach((it,i)=>{
-    const fig=document.createElement("figure");
-    const img=new Image();
-    img.src=it.src;img.alt=it.cap||("수양회 사진 "+(i+1));img.loading="lazy";
-    img.addEventListener("load",()=>img.classList.add("loaded"));
-    fig.appendChild(img);
-    if(it.cap){const c=document.createElement("figcaption");c.textContent=it.cap;fig.appendChild(c);}
-    fig.addEventListener("click",()=>openLightbox(i));
-    grid.appendChild(fig);
-  });
-  area.appendChild(grid);
-  document.getElementById("galleryFoot").hidden=false;
-}else{
-  area.innerHTML=
-    '<div class="gallery-empty">'+
-      '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#2C8A9B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><line x1="12" y1="6" x2="12" y2="22"/><line x1="6" y1="10" x2="18" y2="10"/><path d="M4 14a8 8 0 0 0 16 0"/></svg>'+
-      '<b>사진은 수양회가 끝난 뒤 올라와요</b>'+
-      '<p>며칠만 기다려 주세요. 그 날의 순간들이 이곳에 차곡차곡 가라앉을 거예요.</p>'+
-    '</div>';
-}
-
-// 라이트박스
-const lb=document.getElementById("lightbox"),lbImg=document.getElementById("lbImg"),
-      lbCount=document.getElementById("lbCount"),lbCap=document.getElementById("lbCap");
-let cur=0;
-function preload(i){if(ITEMS[i]){const im=new Image();im.src=ITEMS[i].src;}}
-function openLightbox(i){cur=i;render();lb.classList.add("open");lb.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
-function closeLightbox(){lb.classList.remove("open");lb.setAttribute("aria-hidden","true");document.body.style.overflow="";}
-function step(d){cur=(cur+d+ITEMS.length)%ITEMS.length;render();}
-function render(){
-  lbImg.style.opacity=0;
-  const it=ITEMS[cur];
-  const tmp=new Image();
-  tmp.onload=()=>{lbImg.src=it.src;lbImg.style.opacity=1;};
-  tmp.src=it.src;
-  lbCount.textContent=(cur+1)+" / "+ITEMS.length;
-  lbCap.textContent=it.cap||"";
-  preload((cur+1)%ITEMS.length);preload((cur-1+ITEMS.length)%ITEMS.length);
-}
-document.getElementById("lbClose").onclick=closeLightbox;
-document.getElementById("lbPrev").onclick=e=>{e.stopPropagation();step(-1);};
-document.getElementById("lbNext").onclick=e=>{e.stopPropagation();step(1);};
-lb.addEventListener("click",e=>{if(e.target===lb)closeLightbox();});
-document.addEventListener("keydown",e=>{
-  if(!lb.classList.contains("open"))return;
-  if(e.key==="Escape")closeLightbox();
-  if(e.key==="ArrowLeft")step(-1);
-  if(e.key==="ArrowRight")step(1);
-});
-let sx=0;
-lb.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});
-lb.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)step(dx<0?1:-1);},{passive:true});
 
 // 스크롤 등장
 const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}});},{threshold:.12});
